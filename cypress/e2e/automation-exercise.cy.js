@@ -14,7 +14,7 @@ describe('Automation Exercise - Search options & Dropdown options', () => {
     cy.url().should('include', 'search')
     cy.get('.productinfo').should('exist').and('be.visible').as('products')
     cy.get('@products').its('length').should('be.greaterThan', 0)
-
+    cy.log('test pass because search results are displayed for valid search term');
   })
 
 
@@ -43,7 +43,7 @@ describe('Automation Exercise - Search options & Dropdown options', () => {
     cy.get('#search_product').type('xyz123')
     cy.get('#submit_search').click()
     cy.get('.productinfo').should('have.length', 0)
-
+    cy.log('test pass because no products are displayed for non-existent search term');
   })
 
 
@@ -59,9 +59,8 @@ describe('Automation Exercise - Search options & Dropdown options', () => {
       })
 
     cy.get('.productinfo').should('exist').and('have.length.greaterThan', 0)
-
+    cy.log('test failed because category filter is not working as expected');
   })
-
 
   it('Select sub-category and validate products', () => {
 
@@ -74,9 +73,8 @@ describe('Automation Exercise - Search options & Dropdown options', () => {
       })
 
     cy.get('.productinfo').should('be.visible').and('have.length.greaterThan', 0)
-
+    cy.log('test failed because category filter is not working as expected');
   })
-
 
   it('Search + Add to cart flow (advanced)', () => {
 
@@ -89,6 +87,7 @@ describe('Automation Exercise - Search options & Dropdown options', () => {
         cy.get('a').contains('Add to cart').click({ force: true })
       })
     cy.get('#cartModal').should('be.visible').and('contain.text', 'Added')
+    cy.log('test failed because add to cart flow is not working as expected');
   })
 
   it('Validate dropdown navigation flow using each()', () => {
@@ -101,5 +100,6 @@ describe('Automation Exercise - Search options & Dropdown options', () => {
           cy.wrap($el).scrollIntoView().should('be.visible').click()
         }
       })
+      cy.log('test pass because dropdown options are visible and clickable');
   })
 })
